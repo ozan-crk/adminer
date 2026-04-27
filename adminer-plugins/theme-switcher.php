@@ -188,4 +188,4 @@ class AdminerThemeSwitcher
     }
 }
 
-AdminerThemeSwitcher::run();
+// AdminerThemeSwitcher::run(); // Bu satır doğrudan çıktı verdiği için iptal edildi.

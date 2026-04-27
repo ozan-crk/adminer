@@ -1,7 +1,6 @@
 <?php
 require_once('plugins/login-servers.php');
 
-// Agresif tarama: Tüm kaynakları birleştir ve büyük harfle kontrol et
 $all_vars = array_merge($_ENV, $_SERVER);
 $servers = '';
 
@@ -12,36 +11,24 @@ foreach ($all_vars as $key => $val) {
     }
 }
 
-if (empty($servers)) {
-    $servers = getenv('ADMINER_SERVERS');
-}
-
 $server_list = [];
 
-if (!empty($servers) && is_string($servers)) {
+if (!empty($servers)) {
     foreach (explode(',', $servers) as $s) {
         $parts = explode('=', trim($s));
         if (count($parts) >= 2) {
-            $label = trim($parts[0]);
-            $host = trim($parts[1]);
-            $server_list[$label] = [
-                "server" => $host,
-                "driver" => "server"
-            ];
+            $server_list[trim($parts[0])] = ["server" => trim($parts[1]), "driver" => "server"];
         }
     }
 }
 
-// Fallback: Sorun devam ediyorsa anlamamıza yarayacak
 if (empty($server_list)) {
-    $server_list["Hata: Değişken Bulunamadı (" . count($all_vars) . " var)"] = [
-        "server" => "localhost",
-        "driver" => "server"
-    ];
-    $server_list["Manuel Giriş (db)"] = [
-        "server" => "db",
-        "driver" => "server"
-    ];
+    $server_list["--- DEBUG: İLK 20 VAR ---"] = ["server" => "localhost", "driver" => "server"];
+    $keys = array_keys($all_vars);
+    sort($keys);
+    foreach (array_slice($keys, 0, 20) as $k) {
+        $server_list["K: $k"] = ["server" => "localhost", "driver" => "server"];
+    }
 }
 
 return new AdminerLoginServers($server_list);

@@ -1,2 +1,1 @@
-<?php require_once('plugins/imagefields.php');
-return new AdminerImagefields();
+<?php require_once('plugins/imagefields.php'); return new AdminerImagefields();

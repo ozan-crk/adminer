@@ -1,4 +1,5 @@
 <?php
+require_once('plugins/plugin.php');
 require_once('plugins/login-servers.php');
 
 $all_vars = array_merge($_ENV, $_SERVER);

@@ -1,2 +1,2 @@
-<?php require_once('plugins/json-column.php');
+<?php require_once('admininer-plugins/json-column.php');
 return new AdminerJsonColumn();
